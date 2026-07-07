@@ -1,0 +1,14 @@
+fastapi
+uvicorn[standard]
+pydantic
+pydantic-settings
+python-dotenv
+httpx
+
+transformers
+accelerate
+sentencepiece
+safetensors
+
+motor
+pymongo
