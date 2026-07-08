@@ -20,14 +20,14 @@ class ChatRepository:
         await self.collection.update_one(filter_query, update_query, upsert=True)
 
     async def append_message(self, session_id: str, role: str, content: str):
-        """
-        Menambahkan satu pesan (user/assistant) ke dalam riwayat percakapan.
-        """
         filter_query = {"session_id": session_id}
-        new_message = {"role": role, "content": content}
-        update_query = {"$push": {"history": new_message}}
+        update_query = {"$push": {"history": {"role": role, "content": content}}}
         
-        await self.collection.update_one(filter_query, update_query, upsert=True)
+        # Eksekusi kueri upsert
+        result = await self.collection.update_one(filter_query, update_query, upsert=True)
+        
+        # Cetak jejak kerja database ke terminal
+        print(f"DEBUG DB -> Session: {session_id}, Modified: {result.modified_count}, Upserted ID: {result.upserted_id}")
 
     async def get_recent_history(self, session_id: str, limit: int) -> list:
         """
