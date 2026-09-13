@@ -11,24 +11,24 @@ from app.models.implementation.hf_chat_model import astra_model
 @asynccontextmanager
 async def lifespan(app: FastAPI):
 
-    print("🚀 Memulai inisialisasi server...")
+    print("start server")
 
-    print("✅ Database terhubung.")
+    print("Data Base Connected")
 
 
-    print("🧠 Membangunkan arsitektur Astra Zero...")
+    print("load model")
     astra_model.load(settings.HF_MODEL_ID)
 
     app.state.astra_model = astra_model
 
-    print("🔥 Astra Zero Microservice siap menerima request!")
+    print("ready")
     yield 
 
 
-    print("🛑 Sinyal berhenti diterima. Membersihkan memori...")
+    print("stop")
     
     
-    print("💤 Server berhasil dimatikan dengan aman.")
+    print("server off")
 
 
 
